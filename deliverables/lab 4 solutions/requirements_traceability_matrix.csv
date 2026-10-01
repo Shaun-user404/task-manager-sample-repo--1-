@@ -1,0 +1,9 @@
+Requirement ID,Requirement Description,Test Case ID(s),Test Level,Status
+REQ-001,The system shall allow a new user to register with a unique email address and a password of at least 8 characters.,TC-REG-001; TC-REG-002; TC-REG-003,System,Designed - not run
+REQ-002,The system shall reject registration when the email address is already in use and display an error message.,TC-REG-002,System,Designed - not run
+REQ-003,"The system shall allow users to search the catalogue by title, author, or ISBN and return matching results within 2 seconds.",TC-SRCH-001; TC-SRCH-002; TC-SRCH-003,System; Performance,Designed - not run
+REQ-004,The system shall display "No results found" when a search returns no matches.,TC-SRCH-004,System,Designed - not run
+REQ-005,A registered user shall be able to borrow up to 3 available books at a time for a 14-day loan period.,TC-BOR-001; TC-BOR-002; TC-BOR-003,System,Designed - not run
+REQ-006,The system shall prevent borrowing when the user already has 3 books on loan or an overdue item.,TC-BOR-002; TC-BOR-004,System,Designed - not run
+REQ-007,"The system shall record a return, update book availability, and calculate any overdue fine at P2.00 per day.",TC-RET-001; TC-RET-002,System; Integration,Designed - not run
+REQ-008,The system shall email the user 2 days before the due date and again on each day the book is overdue.,TC-NOT-001; TC-NOT-002,System; Integration,Designed - not run

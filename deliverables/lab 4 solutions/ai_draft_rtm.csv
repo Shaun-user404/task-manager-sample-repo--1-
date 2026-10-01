@@ -1,0 +1,9 @@
+Requirement ID,Requirement Description,Test Case ID(s),Test Level,Status
+REQ-001,The system shall allow a new user to register with a unique email address and a password of at least 8 characters.,AI-TC-001,System,AI draft - not run
+REQ-002,The system shall reject registration when the email address is already in use and display an error message.,AI-TC-002,System,AI draft - not run
+REQ-003,"The system shall allow users to search the catalogue by title, author, or ISBN and return matching results within 2 seconds.",AI-TC-003,System; Performance,AI draft - not run
+REQ-004,The system shall display "No results found" when a search returns no matches.,AI-TC-004,System,AI draft - not run
+REQ-005,A registered user shall be able to borrow up to 3 available books at a time for a 14-day loan period.,AI-TC-005,System,AI draft - not run
+REQ-006,The system shall prevent borrowing when the user already has 3 books on loan or an overdue item.,AI-TC-006,System,AI draft - not run
+REQ-007,"The system shall record a return, update book availability, and calculate any overdue fine at P2.00 per day.",AI-TC-007,System; Integration,AI draft - not run
+REQ-008,The system shall email the user 2 days before the due date and again on each day the book is overdue.,AI-TC-008,System; Integration,AI draft - not run

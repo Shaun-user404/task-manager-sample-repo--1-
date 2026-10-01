@@ -1,0 +1,91 @@
+services:
+  postgres-db:
+    image: postgres:15.5-alpine
+    container_name: postgres-db
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: healenium
+      POSTGRES_USER: healenium_user
+      POSTGRES_PASSWORD: YDk2nmNs4s9aCP6K
+    volumes:
+      - ./healenium/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks: [healenium]
+
+  healenium:
+    image: healenium/hlm-backend:3.5.1
+    container_name: healenium
+    restart: on-failure
+    ports:
+      - "7878:7878"
+    environment:
+      SPRING_POSTGRES_DB: healenium
+      SPRING_POSTGRES_SCHEMA: healenium
+      SPRING_POSTGRES_USER: healenium_user
+      SPRING_POSTGRES_PASSWORD: YDk2nmNs4s9aCP6K
+      SPRING_POSTGRES_DB_HOST: postgres-db
+      KEY_SELECTOR_URL: "false"
+      COLLECT_METRICS: "true"
+      FIND_ELEMENTS_AUTO_HEALING: "false"
+      HLM_LOG_LEVEL: debug
+    depends_on: [postgres-db]
+    volumes:
+      - ./reports/healenium-screenshots:/screenshots
+      - ./reports/healenium-logs:/logs
+    networks: [healenium]
+
+  selector-imitator:
+    image: healenium/hlm-selector-imitator:1.6
+    container_name: selector-imitator
+    restart: on-failure
+    ports:
+      - "8000:8000"
+    networks: [healenium]
+
+  selenium-hub:
+    image: selenium/hub:4.27.0
+    container_name: selenium-hub
+    restart: unless-stopped
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+    networks: [healenium]
+
+  chrome:
+    image: selenium/node-chrome:4.27.0
+    container_name: selenium-chrome
+    restart: unless-stopped
+    shm_size: 2gb
+    depends_on: [selenium-hub]
+    environment:
+      SE_EVENT_BUS_HOST: selenium-hub
+      SE_EVENT_BUS_PUBLISH_PORT: 4442
+      SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+      SE_NODE_MAX_SESSIONS: 3
+    networks: [healenium]
+
+  hlm-proxy:
+    image: healenium/hlm-proxy:2.2.1
+    container_name: hlm-proxy
+    restart: on-failure
+    ports:
+      - "8085:8085"
+    environment:
+      RECOVERY_TRIES: 1
+      SCORE_CAP: ".6"
+      HEAL_ENABLED: "true"
+      SELENIUM_SERVER_URL: http://selenium-hub:4444/wd/hub
+      HEALENIUM_SERVER_URL: http://localhost:7878
+      HEALENIUM_SERVICE: http://healenium:7878
+      IMITATE_SERVICE: http://selector-imitator:8000
+      HLM_LOG_LEVEL: debug
+    depends_on: [healenium, selector-imitator, selenium-hub, chrome]
+    volumes:
+      - ./reports/healenium-logs:/logs
+    networks: [healenium]
+
+networks:
+  healenium:
+    name: healenium
