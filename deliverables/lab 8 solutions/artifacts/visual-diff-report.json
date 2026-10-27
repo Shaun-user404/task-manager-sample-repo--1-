@@ -1,0 +1,13 @@
+{
+  "baseline": "visual-baseline.png",
+  "comparison": "visual-after-change.png",
+  "diffImage": "visual-diff.png",
+  "viewport": {
+    "width": 1365,
+    "height": 900
+  },
+  "differentPixels": 13463,
+  "totalPixels": 1228500,
+  "differencePercent": 1.096,
+  "deliberateChange": "Increased the top margin of the app shell from 24px to 40px."
+}

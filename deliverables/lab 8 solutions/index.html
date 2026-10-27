@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Taskflow | My tasks</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Taskflow home">
+          <img class="brand-mark" src="mark.svg" alt="">
+          <span>taskflow</span>
+        </a>
+        <p class="workspace-label">PERSONAL WORKSPACE</p>
+        <button class="avatar" type="button" aria-label="S, account menu">S</button>
+      </header>
+
+      <section class="page-content" aria-labelledby="page-title">
+        <div class="page-heading">
+          <div>
+            <p class="eyebrow">TUESDAY, OCTOBER 27</p>
+            <h1 id="page-title">My tasks</h1>
+            <p class="muted">A little progress each day adds up.</p>
+          </div>
+          <span class="task-count"><span id="remaining-count">2</span> tasks left</span>
+        </div>
+
+        <section class="task-card" aria-labelledby="list-title">
+          <div class="card-heading">
+            <div>
+              <h2 id="list-title">Today</h2>
+              <p class="muted">Your focus for the day</p>
+            </div>
+            <span class="date-pill">OCT 27</span>
+          </div>
+
+          <form id="add-task-form" class="add-task">
+            <label class="sr-only" for="new-task">Add a task</label>
+            <input id="new-task" name="task" type="text" placeholder="What needs to get done?" required>
+            <button type="submit">Add task</button>
+          </form>
+
+          <ul id="task-list" class="task-list" aria-label="Tasks">
+            <li class="task-row">
+              <input id="task-1" type="checkbox">
+              <label for="task-1">Review project brief</label>
+              <span class="priority">HIGH PRIORITY</span>
+            </li>
+            <li class="task-row">
+              <input id="task-2" type="checkbox">
+              <label for="task-2">Send notes to the team</label>
+              <span class="priority">WORK</span>
+            </li>
+          </ul>
+
+          <footer class="card-footer">
+            <span class="muted">Keep your momentum going.</span>
+            <button id="clear-completed" class="text-button" type="button">Clear completed</button>
+          </footer>
+        </section>
+        <p class="footer-note">Made for focused days <span aria-hidden="true">✦</span></p>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>

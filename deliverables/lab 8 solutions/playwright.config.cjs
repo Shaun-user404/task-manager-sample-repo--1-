@@ -1,0 +1,11 @@
+const { defineConfig } = require("@playwright/test");
+
+module.exports = defineConfig({
+  testDir: "./tests",
+  reporter: "list",
+  use: {
+    browserName: "chromium",
+    headless: true,
+    viewport: { width: 1365, height: 900 },
+  },
+});

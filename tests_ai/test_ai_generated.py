@@ -1,3 +1,4 @@
+import builtins
 import pytest
 import json
 import app.tasks as task_module
@@ -192,3 +193,22 @@ def test_load_tasks_preserves_task_data_types(tmp_path, monkeypatch):
     assert isinstance(result[0]["id"], int)
     assert isinstance(result[0]["tags"], list)
     assert isinstance(result[0]["done"], bool)
+
+
+def test_load_tasks_uses_explicit_utf8_text_read(tmp_path, monkeypatch):
+    tasks_file = tmp_path / "tasks.json"
+    expected_tasks = [{"id": 1, "title": "Café notes", "done": False}]
+    tasks_file.write_text(json.dumps(expected_tasks), encoding="utf-8")
+    monkeypatch.setattr(task_module, "TASKS_FILE", str(tasks_file))
+
+    real_open = builtins.open
+    open_calls = []
+
+    def recording_open(file, *args, **kwargs):
+        open_calls.append((args, kwargs))
+        return real_open(file, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "open", recording_open)
+
+    assert task_module.load_tasks() == expected_tasks
+    assert open_calls == [(("r",), {"encoding": "utf-8"})]

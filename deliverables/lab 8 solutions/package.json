@@ -1,0 +1,17 @@
+{
+  "name": "lab-8-visual-accessibility",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "visual:baseline": "node scripts/visual-regression.cjs --baseline",
+    "visual:compare": "node scripts/visual-regression.cjs",
+    "a11y:before": "node scripts/scan-accessibility.cjs --allow-violations artifacts/accessibility-before.json",
+    "a11y:after": "node scripts/scan-accessibility.cjs artifacts/accessibility-after.json"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "axe-core": "^4.10.3",
+    "pixelmatch": "^6.0.0",
+    "pngjs": "^7.0.0"
+  }
+}

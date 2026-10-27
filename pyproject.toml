@@ -1,0 +1,5 @@
+[tool.mutmut]
+source_paths = ["app/tasks.py"]
+pytest_add_cli_args = ["-q", "-k", "find_task_by_title or remove_task or load_tasks"]
+pytest_add_cli_args_test_selection = ["tests_ai/test_ai_generated.py", "test_manual/test_manual.py"]
+also_copy = ["pytest.ini", "tests_ai", "test_manual", "test_combined"]
